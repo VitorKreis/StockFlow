@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  stockflow-db:
+    image: mysql:5.7
+    container_name: stockflow-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'stockflow'
+      MYSQL_USER: 'stockuser'
+      MYSQL_PASSWORD: 'stockpass123'
+      MYSQL_ROOT_PASSWORD: 'rootpass'
+    ports:
+      - '3306:3306'
+    volumes:
+      - stockflow-db-data:/var/lib/mysql
+    networks:
+      - stockflow-network
+
+volumes:
+  stockflow-db-data:
+
+networks:
+  stockflow-network:
+    driver: bridge

@@ -1,0 +1,6 @@
+ALTER TABLE fornecedor ADD COLUMN endereco_id INT NOT NULL UNIQUE;
+
+ALTER TABLE fornecedor ADD CONSTRAINT fk_endereco
+FOREIGN KEY (endereco_id) REFERENCES endereco(id)
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
