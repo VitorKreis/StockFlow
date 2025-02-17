@@ -3,6 +3,7 @@ package DarkCode.StockFlow.Domain.Produto;
 import DarkCode.StockFlow.Domain.Categoria;
 import DarkCode.StockFlow.Domain.Endereco.Endereco;
 import DarkCode.StockFlow.Domain.Fornecedor.Fornecedor;
+import DarkCode.StockFlow.Domain.Produto.DTO.dadosProdutoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -40,10 +41,14 @@ public class Produto {
 
     private boolean ativo;
 
-    @Embedded
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_id")
-    private Endereco endereco;
 
-
+    public Produto(dadosProdutoDTO dados, Fornecedor fornecedor) {
+         this.nome = dados.nome();
+         this.descricao = dados.descricao();
+         this.codigo = dados.codigo();
+         this.preco = dados.preco();
+         this.categoria = dados.categoria();
+         this.fornecedor = fornecedor;
+         this.ativo = true;
+    }
 }

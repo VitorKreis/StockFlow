@@ -2,6 +2,7 @@ package DarkCode.StockFlow.Domain.Fornecedor;
 
 import DarkCode.StockFlow.Domain.Categoria;
 import DarkCode.StockFlow.Domain.Endereco.Endereco;
+import DarkCode.StockFlow.Domain.Fornecedor.DTO.dadosFornecedorDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,17 +26,26 @@ public class Fornecedor {
 
     private String CNPJ;
 
-    private int telefone;
+    private String telefone;
 
     private String email;
 
-    @Embedded
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
     @Enumerated(EnumType.STRING)
-    private Categoria produtosFornecidos;
+    private Categoria categoria;
 
     private Boolean ativo;
+
+    public Fornecedor(dadosFornecedorDTO dados, Endereco endereco) {
+        this.nome = dados.nome();
+        this.telefone = dados.telefone();
+        this.CNPJ = dados.CNPJ();
+        this.email = dados.email();
+        this.endereco = endereco;
+        this.categoria = dados.produtosFornecidos();
+        this.ativo = true;
+    }
 }
