@@ -1,14 +1,12 @@
 package DarkCode.StockFlow.Domain.Produto;
 
 import DarkCode.StockFlow.Domain.Categoria;
-import DarkCode.StockFlow.Domain.Endereco.Endereco;
 import DarkCode.StockFlow.Domain.Fornecedor.Fornecedor;
 import DarkCode.StockFlow.Domain.Produto.DTO.dadosProdutoDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Optional;
 
 
 @Table(name = "produto")
@@ -16,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 public class Produto {
 
@@ -51,4 +50,18 @@ public class Produto {
          this.fornecedor = fornecedor;
          this.ativo = true;
     }
+
+    public void update(dadosProdutoDTO dados){
+        Optional.ofNullable(dados.categoria()).ifPresent(this::setCategoria);
+        Optional.ofNullable(dados.nome()).ifPresent(this::setNome);
+        Optional.ofNullable(dados.codigo()).ifPresent(this::setCodigo);
+        Optional.ofNullable(dados.descricao()).ifPresent(this::setDescricao);
+        Optional.of(dados.preco()).ifPresent(this::setPreco);
+
+    }
+
+    public void disable(){
+        this.setAtivo(false);
+    }
+
 }

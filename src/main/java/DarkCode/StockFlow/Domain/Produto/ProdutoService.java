@@ -8,6 +8,8 @@ import DarkCode.StockFlow.Domain.Produto.DTO.dadosProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProdutoService {
 
@@ -30,5 +32,7 @@ public class ProdutoService {
         return produtoRepository.save(produto);
 
     }
+
+
 
 }

@@ -8,6 +8,7 @@ import DarkCode.StockFlow.Domain.Fornecedor.FornecedorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -48,6 +49,33 @@ public class FornecedorController {
 
         return ResponseEntity.ok(fornecedores);
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseFornecedorDTO> updateById(@PathVariable Long id, @RequestBody dadosFornecedorDTO dados){
+
+        Fornecedor forncedor = repository.getReferenceById(id);
+
+        forncedor.update(dados);
+
+        return ResponseEntity.ok(new ResponseFornecedorDTO(forncedor));
+    }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity.HeadersBuilder disableById(@PathVariable Long id){
+
+        var fornercedor = repository.getReferenceById(id);
+
+        fornercedor.disable();
+
+        return ResponseEntity.noContent();
+    }
+
+
+
+
+
 
 
 

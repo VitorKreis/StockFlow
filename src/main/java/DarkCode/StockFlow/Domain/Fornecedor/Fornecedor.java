@@ -4,10 +4,9 @@ import DarkCode.StockFlow.Domain.Categoria;
 import DarkCode.StockFlow.Domain.Endereco.Endereco;
 import DarkCode.StockFlow.Domain.Fornecedor.DTO.dadosFornecedorDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Optional;
 
 
 @Table(name = "fornecedor")
@@ -15,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 public class Fornecedor {
 
@@ -48,4 +48,18 @@ public class Fornecedor {
         this.categoria = dados.produtosFornecidos();
         this.ativo = true;
     }
+
+    public void update(dadosFornecedorDTO dados) {
+        Optional.ofNullable(dados.produtosFornecidos()).ifPresent(this::setCategoria);
+        Optional.ofNullable(dados.nome()).ifPresent(this::setNome);
+        Optional.ofNullable(dados.telefone()).ifPresent(this::setTelefone);
+        Optional.ofNullable(dados.CNPJ()).ifPresent(this::setCNPJ);
+        Optional.ofNullable(dados.email()).ifPresent(this::setEmail);
+
+    }
+
+    public void disable(){
+        this.setAtivo(false);
+    }
+
 }

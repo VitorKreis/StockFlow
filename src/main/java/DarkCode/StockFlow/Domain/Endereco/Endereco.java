@@ -3,16 +3,16 @@ package DarkCode.StockFlow.Domain.Endereco;
 
 import DarkCode.StockFlow.Domain.Endereco.DTO.DadosEndereco;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Optional;
 
 @Table(name = "endereco")
 @Entity(name = "Endereco")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 public class Endereco {
 
@@ -41,4 +41,12 @@ public class Endereco {
         this.complemento = dados.complemento();
     }
 
+    public void update(DadosEndereco dados) {
+        Optional.ofNullable(dados.rua()).ifPresent(this::setRua);
+        Optional.ofNullable(dados.cep()).ifPresent(this::setCep);
+        Optional.ofNullable(dados.numero()).ifPresent(this::setNumero);
+        Optional.ofNullable(dados.uf()).ifPresent(this::setUf);
+        Optional.ofNullable(dados.bairro()).ifPresent(this::setBairro);
+        Optional.ofNullable(dados.complemento()).ifPresent(this::setComplemento);
+    }
 }

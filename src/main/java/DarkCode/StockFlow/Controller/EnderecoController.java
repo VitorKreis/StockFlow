@@ -7,6 +7,7 @@ import DarkCode.StockFlow.Domain.Endereco.DTO.EnderecoResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -46,6 +47,32 @@ public class EnderecoController {
 
         return ResponseEntity.ok().body(new EnderecoResponse(endereco));
     }
+
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<EnderecoResponse> updateById(@PathVariable Long id, @RequestBody DadosEndereco dados){
+
+        Endereco endereco = repository.getReferenceById(id);
+
+        endereco.update(dados);
+
+        repository.save(endereco);
+
+        return ResponseEntity.ok(new EnderecoResponse(endereco));
+
+    }
+
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity.HeadersBuilder deleteById(@PathVariable Long id){
+
+        repository.deleteById(id);
+
+        return ResponseEntity.noContent();
+    }
+
 
 
 
