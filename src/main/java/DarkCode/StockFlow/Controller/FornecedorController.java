@@ -1,5 +1,6 @@
 package DarkCode.StockFlow.Controller;
 
+import DarkCode.StockFlow.Domain.Fornecedor.DTO.FornecedorPagableDTO;
 import DarkCode.StockFlow.Domain.Fornecedor.DTO.ResponseFornecedorDTO;
 import DarkCode.StockFlow.Domain.Fornecedor.DTO.dadosFornecedorDTO;
 import DarkCode.StockFlow.Domain.Fornecedor.ForncedorRepository;
@@ -7,6 +8,9 @@ import DarkCode.StockFlow.Domain.Fornecedor.Fornecedor;
 import DarkCode.StockFlow.Domain.Fornecedor.FornecedorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +41,8 @@ public class FornecedorController {
 
 
     @GetMapping
-    public ResponseEntity<List<Fornecedor>> getAll(){
-        var fornecedores = repository.findAll();
+    public ResponseEntity<Page<FornecedorPagableDTO>> getAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable){
+        var fornecedores = repository.findAllAtivo(pageable).map(FornecedorPagableDTO::new);
 
         return ResponseEntity.ok(fornecedores);
     }

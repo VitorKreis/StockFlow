@@ -1,10 +1,8 @@
 package DarkCode.StockFlow.Domain.Fornecedor.DTO;
 
 import DarkCode.StockFlow.Domain.Categoria;
-import DarkCode.StockFlow.Domain.Endereco.Endereco;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.beans.factory.annotation.Value;
 
 public record dadosFornecedorDTO(
 
