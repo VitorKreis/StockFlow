@@ -49,12 +49,13 @@ public class Fornecedor {
         this.ativo = true;
     }
 
-    public void update(dadosFornecedorDTO dados) {
+    public void update(dadosFornecedorDTO dados, Endereco endereco) {
         Optional.ofNullable(dados.produtosFornecidos()).ifPresent(this::setCategoria);
         Optional.ofNullable(dados.nome()).ifPresent(this::setNome);
         Optional.ofNullable(dados.telefone()).ifPresent(this::setTelefone);
         Optional.ofNullable(dados.CNPJ()).ifPresent(this::setCNPJ);
         Optional.ofNullable(dados.email()).ifPresent(this::setEmail);
+        Optional.ofNullable(endereco).ifPresent(this::setEndereco);
 
     }
 

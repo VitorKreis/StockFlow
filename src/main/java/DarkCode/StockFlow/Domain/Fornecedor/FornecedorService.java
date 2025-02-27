@@ -26,5 +26,18 @@ public class FornecedorService {
 
     }
 
+    public Fornecedor update(Long id, dadosFornecedorDTO dados){
+
+        var endereco = endereco_repository.getReferenceById(dados.endereco_id());
+
+        var fornecedor = forncedor_repository.getReferenceById(id);
+
+        fornecedor.update(dados, endereco);
+
+        return fornecedor;
+
+    }
+
+
 
 }

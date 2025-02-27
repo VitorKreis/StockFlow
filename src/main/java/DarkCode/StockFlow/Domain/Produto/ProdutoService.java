@@ -33,6 +33,18 @@ public class ProdutoService {
 
     }
 
+    public Produto update(Long id, dadosProdutoDTO dados){
+        var fornecedor = forncedorRepository.getReferenceById(dados.fornecedor_id());
+
+        var produto = produtoRepository.getReferenceById(id);
+
+        produto.update(dados, fornecedor);
+
+        return produto;
+
+    }
+
+
 
 
 }

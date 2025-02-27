@@ -60,9 +60,9 @@ public class ProdutoController {
     @Transactional
     public ResponseEntity<ResponseProdutoDTO> updateById(@PathVariable Long id, @RequestBody  dadosProdutoDTO dados){
 
-        Produto produto = repository.getReferenceById(id);
 
-        produto.update(dados);
+        var produto = service.update(id, dados);
+
 
         return ResponseEntity.ok(new ResponseProdutoDTO(produto));
 

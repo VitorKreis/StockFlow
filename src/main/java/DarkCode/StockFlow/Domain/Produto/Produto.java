@@ -51,12 +51,13 @@ public class Produto {
          this.ativo = true;
     }
 
-    public void update(dadosProdutoDTO dados){
+    public void update(dadosProdutoDTO dados, Fornecedor fornecedor){
         Optional.ofNullable(dados.categoria()).ifPresent(this::setCategoria);
         Optional.ofNullable(dados.nome()).ifPresent(this::setNome);
         Optional.ofNullable(dados.codigo()).ifPresent(this::setCodigo);
         Optional.ofNullable(dados.descricao()).ifPresent(this::setDescricao);
         Optional.of(dados.preco()).ifPresent(this::setPreco);
+        Optional.ofNullable(fornecedor).ifPresent(this::setFornecedor);
 
     }
 

@@ -56,13 +56,14 @@ public class FornecedorController {
 
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<ResponseFornecedorDTO> updateById(@PathVariable Long id, @RequestBody dadosFornecedorDTO dados){
 
-        Fornecedor forncedor = repository.getReferenceById(id);
 
-        forncedor.update(dados);
+        var fornecedor =  service.update(id, dados);
 
-        return ResponseEntity.ok(new ResponseFornecedorDTO(forncedor));
+
+        return ResponseEntity.ok(new ResponseFornecedorDTO(fornecedor));
     }
 
     @DeleteMapping("{id}")
